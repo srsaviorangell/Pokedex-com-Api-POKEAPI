@@ -2,17 +2,19 @@ const inicioCont = 0
 const finalCont = 9
 const url = `https://pokeapi.co/api/v2/pokemon/?offset=${inicioCont}&limit=${finalCont}`
 
-const convertPokemonTypes = (types) => {
-   return types.map((typeSlot) => `<h1 class="tipo">${typeSlot.type.name}</h1>`);
-}
+// const convertPokemonTypes = (types) => {
+//    return types.map((typeSlot) => );
+// }
 
 function convertPokemonHtml(pokemon) {
    return `
-       <li class="caixas">
-           <h1 class="nome-pok">${pokemon.name}</h1>
-           ${convertPokemonTypes(pokemon.types).join('')}
-           <img class="img-pok" src="${pokemon.sprites.other.dream_world.front_default}" alt="">
-       </li>
+       <div class="caixas ${pokemon.type}">
+           <h1 class="nome-pok ">${pokemon.name}</h1>
+            <div class="row-tipo ${pokemon.type}" >
+           ${pokemon.types.map((type)=>`<h1 class="tipo ">${type}</h1>`).join("")}
+            </div>
+           <img class="img-pok" src="${pokemon.photo}" alt="${pokemon.name}">
+       </div>
    `
 }
 

@@ -1,7 +1,8 @@
 
-class pokemonDet{
+class Pokemon{
     name;
     types =[];
     type;
     photo;
 }
+

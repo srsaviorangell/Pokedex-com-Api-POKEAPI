@@ -1,32 +1,38 @@
-//criamos uma função chamanda pokeApi
+class Pokemon1{
+    name;
+    types =[];
+    type;
+    photo;
+}
 
 const pokeApi = {};
 
-    // function resumipok(pokeDetail) {
-    //     const pokemon = new pokemon()
-    //     pokemon.name = pokemon.name
-    //      const types =pokemon.types.map((typeSlot)=> typeSlot.type.name)
-    //     const [type] = types
-    //     pokemon.photo = pokemon.sprites.other.dream_world.front_default
+function resumiPoke(pokeDetail) {
+    const newPokemon = new Pokemon1(); // Use um nome diferente para evitar conflito de nomes
+    newPokemon.name = pokeDetail.name;
 
-    //     return pokemon
-    // }
+    const types = pokeDetail.types.map((typeSlot) => typeSlot.type.name);
+    const [type] = types;
+    newPokemon.types = types;
+    newPokemon.type = type;
+    newPokemon.photo = pokeDetail.sprites.other.dream_world.front_default;
+
+    return newPokemon;
+}
+
 pokeApi.getPokemonDetail = (pokemon) => {
     return fetch(pokemon.url)
-    .then((response)=>response.json())
-//     .then((pokemon)=>{
-//     })
-//     .then(resumipok)
-}
-   
+        .then((response) => response.json())
+        .then(resumiPoke)
+};
 
-pokeApi.getPokemons = ( inicioCont = 0 , finalCont = 9 ) => {
-    const url = `https://pokeapi.co/api/v2/pokemon/?offset=${inicioCont}&limit=${finalCont}`
-       
+pokeApi.getPokemons = (inicioCont = 0, finalCont = 10) => {
+    const url = `https://pokeapi.co/api/v2/pokemon/?offset=${inicioCont}&limit=${finalCont}`;
+
     return fetch(url)
-        .then( response => response.json())
-        .then(jsonBody => jsonBody.results)
-        .then((pokemons)=> pokemons.map(pokeApi.getPokemonDetail))
-        .then((detailRequests)=> Promise.all(detailRequests))
-        .then((pokemonsDetail)=> pokemonsDetail)
-}
+        .then((response) => response.json())
+        .then((jsonBody) => jsonBody.results.map(pokeApi.getPokemonDetail))
+        .then((detailRequests) => Promise.all(detailRequests))
+        .then((pokemonsDetail) => pokemonsDetail);
+};
+

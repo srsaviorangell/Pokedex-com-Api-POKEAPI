@@ -13,26 +13,28 @@ nav{
     height: 50px;
     justify-content: center;
     align-items: center;
+    margin-top: 50px;
 }
 main{
     width: 100vw;
-    height: 83.6vh;
 }
 .display-grid{
     background-color: rgba(248, 233, 168, 0.664);
     border: violet solid;
-    width: 90vw;
-    height: 83.6vh;
+    width: 70vw;
+    height: auto;
     margin: auto;
     box-shadow: 5px 5px  rgba(34, 30, 12, 0.664);
     border-radius: 15px;
     display: grid;
     grid-template-columns: repeat(5 , 1fr);
-    grid-template-rows:  45% 45% 10%;
-   align-items: center;
-   justify-items: center;
-  padding-top: 50px;
-  row-gap: 10px;
+    grid-template-rows: auto;
+    align-items: center;
+    justify-items: center;
+    padding-top: 40px;
+    margin-top: 20px;
+    row-gap: 10px;
+    padding-bottom: 35px;
   
 }
 .caixas{
@@ -73,11 +75,12 @@ main{
 }
 .caixas img{
     display: flex;
-    align-items: center;
-    justify-self: center;
-    width: 140px;
-    margin: auto;  
-    height: 120px;
+    justify-content: center;
+    align-items:center ;
+    position: relative;
+    left: 50px;  
+    max-width: 70%;
+    max-height: 50%;
 }
 .normal {
     background-color: #a6a877;
@@ -151,3 +154,19 @@ main{
     background-color: #f9aec7;
 }
 
+.button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+    position: relative;
+    bottom: 29px;
+
+}
+
+.button button{
+    background-color: #6C7ADC;
+    padding: 0.3%;
+    border: none;
+    border-radius: 1.2rem;
+}

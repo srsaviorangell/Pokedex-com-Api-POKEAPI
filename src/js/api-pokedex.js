@@ -1,29 +1,31 @@
-const inicioCont = 0
-const finalCont = 9
-const url = `https://pokeapi.co/api/v2/pokemon/?offset=${inicioCont}&limit=${finalCont}`
+const displayGrid = document.querySelector(".display-grid");
+const loadingM = document.getElementById("ver-mais");
+const limit = 10 ;
+let offSet = 0 ;
 
-// const convertPokemonTypes = (types) => {
-//    return types.map((typeSlot) => );
-// }
-
-function convertPokemonHtml(pokemon) {
-   return `
-       <div class="caixas ${pokemon.type}">
-           <h1 class="nome-pok ">${pokemon.name}</h1>
-            <div class="row-tipo ${pokemon.type}" >
-           ${pokemon.types.map((type)=>`<h1 class="tipo ">${type}</h1>`).join("")}
-            </div>
-           <img class="img-pok" src="${pokemon.photo}" alt="${pokemon.name}">
-       </div>
-   `
+function loadingIntens(offSet, limit ){
+    pokeApi.getPokemons(offSet, limit).then((pokemonList = []) => {
+        const newHtml =  pokemonList.map((pokemon)=> `
+            <div class="caixas ${pokemon.type}">
+                <h1 class="nome-pok ">${pokemon.name}</h1>
+                <div class="row-tipo ${pokemon.type}" >
+                ${pokemon.types.map((type)=>`<h1 class="tipo ">${type}</h1>`).join("")}
+                </div>
+                <img class="img-pok" src="${pokemon.photo}" alt="${pokemon.name}">
+            </div>`).join('')
+        displayGrid.innerHTML += newHtml;
+        if (offSet + limit >= 250){
+            loadingM.style.display = "none";
+        }
+    })
 }
 
+loadingIntens(offSet, limit)
 
-const displayGrid = document.querySelector(".display-grid");
-pokeApi.getPokemons().then((pokemonList = []) => {
-   const newHtml = pokemonList.map(convertPokemonHtml).join('');
-   displayGrid.innerHTML = newHtml;
-});
+loadingM.addEventListener('click', ()=>{
+    offSet += limit
+    loadingIntens(offSet, limit)
+})
 
 
 

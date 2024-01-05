@@ -1,64 +1,76 @@
 const displayGrid = document.querySelector(".display-grid");
 const loadingM = document.getElementById("ver-mais");
-const limit = 10 ;
-let offSet = 0 ;
+const limit = 10;
+let offSet = 0;
+let pokemonList = [];
 
-function loadingIntens(offSet, limit ){
-    pokeApi.getPokemons(offSet, limit).then((pokemonList = []) => {
-        const newHtml =  pokemonList.map((pokemon)=> `
-            <div class="caixas ${pokemon.type}">
-                <h1 class="nome-pok ">${pokemon.name}</h1>
-                <div class="row-tipo ${pokemon.type}" >
-                ${pokemon.types.map((type)=>`<h1 class="tipo ">${type}</h1>`).join("")}
-                </div>
-                <img class="img-pok" src="${pokemon.photo}" alt="${pokemon.name}">
-            </div>`).join('')
+function loadingIntens(offSet, limit) {
+    pokeApi.getPokemons(offSet, limit).then((newPokemonList = []) => {
+        pokemonList = pokemonList.concat(newPokemonList);
+
+        const newHtml = newPokemonList
+            .map(
+                (pokemon, index) => `
+                    <div class="caixas ${pokemon.type}" data-index="${index}">
+                        <h1 class="nome-pok">${pokemon.name}</h1>
+                        <div class="row-tipo ${pokemon.type}">
+                            ${pokemon.types.map((type) => `<h1 class="tipo">${type}</h1>`).join("")}
+                        </div>
+                        <img class="pokemon-mod" src="${pokemon.photo}" alt="${pokemon.name}">
+                    </div>
+                `
+            )
+            .join("");
         displayGrid.innerHTML += newHtml;
-        if (offSet + limit >= 250){
-            loadingM.style.display = "none";
-        }
-    })
+
+        const caixas = document.querySelectorAll('.caixas');
+
+        caixas.forEach((caixa, index) => {
+            caixa.addEventListener("click", () => {
+                generatePokemonHTML(index);
+            });
+        });
+    });
 }
 
-loadingIntens(offSet, limit)
+function generatePokemonHTML(index) {
+    const pokemonClicked = pokemonList[index];
+    const pokemonHTML = `
+        <div class="faden hiden">
+            <div class="modal hiden">        
+                <div class="color">
+                    <img class="color-img" src="${pokemonClicked.photo}" alt="${pokemonClicked.name}"> 
+                    <div> 
+                        <h1 class="nome-modal">${pokemonClicked.name}</h1>
+                        <button class="close-but">x</button>
+                    </div>
+                </div>
+                <div class="informacao">
+                    <p>Types: ${pokemonClicked.types.join(", ")}</p>
+                </div>
+            </div>
+        </div>
+    `;
 
-loadingM.addEventListener('click', ()=>{
-    offSet += limit
-    loadingIntens(offSet, limit)
-})
+    const detailsContainer = document.querySelector(".informacoes");
+    detailsContainer.innerHTML = pokemonHTML;
 
+    const modal1 = document.querySelector('.modal');
+    const fade = document.querySelector('.faden');
+    const close = document.querySelector('.close-but');
 
+    modal1.classList.toggle("hiden");
+    fade.classList.toggle("hiden");
 
-//essa tambem seria uma opção mais podemos diminuti ainda no pokemonlist.map para nao chamando uma arron e sim passando a referecia ja direito do html 
-// pokeApi.getPokemons().then ((pokemonList = []) =>{
+    close.addEventListener("click", () => {
+        modal1.classList.toggle("hiden");
+        fade.classList.toggle("hiden");
+    });
+}
 
-//    const newList = pokemonList.map((pokemonList) => convertPokemonHtml(pokemonList))
-//    console.log(pokemonList)
-   
-//    const newHtml = newList.join('')
-//    displayGrid.innerHTML += newHtml
-// })
+loadingIntens(offSet, limit);
 
-
-// esse seria o metodo sem a redução, vamos deixa o reduzido para melhor ter as 3
-// pokeApi.getPokemons().then ((pokemonList = []) =>{
-
-//    const newList = pokemonList.map((pokemonList) => {
-//       return convertPokemonHtml(pokemonList)
-//    })
-//    console.log(pokemonList)
-   
-//    const newHtml = newList.join('')
-//    displayGrid.innerHTML += newHtml
-// })
-
-// essa linhas comentadas e para mostra o jeito de fazer com for 
-// pokeApi.getPokemons().then(pokemonList => { 
-//       for (let i = 0; i < pokemonList.length; i++) {
-//          const pokemon = pokemonList[i];
-//          console.log(convertPokemonHtml(pokemon));
-//          displayGrid.innerHTML += convertPokemonHtml(pokemon)
-//       }
-   
-//    })
-  
+loadingM.addEventListener('click', () => {
+    offSet += limit;
+    loadingIntens(offSet, limit);
+});

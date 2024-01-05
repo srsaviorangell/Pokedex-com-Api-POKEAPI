@@ -10,7 +10,7 @@ const pokeApi = {};
 function resumiPoke(pokeDetail) {
     const newPokemon = new Pokemon1(); // Use um nome diferente para evitar conflito de nomes
     newPokemon.name = pokeDetail.name;
-
+    
     const types = pokeDetail.types.map((typeSlot) => typeSlot.type.name);
     const [type] = types;
     newPokemon.types = types;

@@ -179,13 +179,14 @@ main{
 /* modal aparti de agora  */
 
 .faden{
-    position:absolute;
     background-color: rgba(0,0, 0, 0.3);
     height: 95vh;
     width: 100vw;
-    top: 12%;
-    transform: translate(0%,-10%);
-    display: flex;
+    display: flex; 
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 .hiden {
     display: none
@@ -197,7 +198,10 @@ main{
     height: 36rem;
     flex-direction: column;
     border: solid;
-    margin: auto;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 .color-img{
     max-width: 38%;

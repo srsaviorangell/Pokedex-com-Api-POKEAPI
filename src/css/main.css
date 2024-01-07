@@ -14,6 +14,7 @@ nav{
     justify-content: center;
     align-items: center;
     margin-top: 50px;
+    position
 }
 main{
     width: 100vw;
@@ -187,6 +188,7 @@ main{
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+     position: fixed;
 }
 .hiden {
     display: none
@@ -198,11 +200,7 @@ main{
     height: 36rem;
     flex-direction: column;
     border: solid;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    
+    margin: auto;
 }
 .color-img{
     max-width: 38%;

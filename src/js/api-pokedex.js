@@ -66,6 +66,11 @@ function generatePokemonHTML(index) {
         modal1.classList.toggle("hiden");
         fade.classList.toggle("hiden");
     });
+    [modal1, close].forEach((el)=>{
+        el.addEventListener("click",{
+        
+        })
+    })
 }
 
 loadingIntens(offSet, limit);

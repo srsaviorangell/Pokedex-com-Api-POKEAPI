@@ -191,7 +191,7 @@ main{
      position: fixed;
 }
 .hiden {
-    display: none
+display: none;
 }
 .modal{
     display: flex;
@@ -203,10 +203,13 @@ main{
     margin: auto;
 }
 .color-img{
-    max-width: 38%;
+    max-width: 100%;
+    width: 15%;
     position: absolute;
     transform: translate(0% , 15%);
     z-index: 1;
+    height: 30%;
+    max-height: 100%;
 }
 .img-test{
     max-width: 70%;
@@ -232,14 +235,16 @@ main{
     
 }
 .close-but{
-    position: relative;
+    position: fixed;
     width: 35px;
     height: 35px;
-    bottom: 14rem;
-    left: 12.5rem;
     border-radius: 50%;
     border: none;
     cursor: pointer;
+    border: solid black;
+    transform: translate(12.6rem,-17.5rem);
+    font-size: larger;
+    font-weight: 700;
 }
 .nome-modal{
     position: relative;

@@ -37,8 +37,8 @@ function generatePokemonHTML(index) {
     const pokemonClicked = pokemonList[index];
     const pokemonHTML = `
         <div class="faden hiden">
-            <div class="modal hiden">        
-                <div class="color ${pokemonClicked.type}">
+            <div class="modal hiden ${pokemonClicked.type}">        
+                <div class="color ">
                     <img class="color-img" src="${pokemonClicked.photo}" alt="${pokemonClicked.name}"> 
                     <div> 
                         <h1 class="nome-modal">${pokemonClicked.name}</h1>

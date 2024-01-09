@@ -3,8 +3,11 @@ class Pokemon1{
     types =[];
     type;
     photo;
+    species;
+    height;
+    habilidades=[];
+    start=[];
 }
-
 const pokeApi = {};
 
 function resumiPoke(pokeDetail) {
@@ -16,9 +19,19 @@ function resumiPoke(pokeDetail) {
     newPokemon.types = types;
     newPokemon.type = type;
     newPokemon.photo = pokeDetail.sprites.other.dream_world.front_default;
-
+    newPokemon.species = pokeDetail.species.name;
+    newPokemon.height = pokeDetail.height;
+    newPokemon.habilidades = pokeDetail.abilities.map((abilitySlot) => abilitySlot.ability.name);
+    const statsList = pokeDetail.stats.map((statSlot) => ({
+        name: statSlot.stat.name,
+        value: statSlot.base_stat
+      }));
+    newPokemon.start = statsList;
+    console.log(newPokemon)
     return newPokemon;
+   
 }
+
 
 pokeApi.getPokemonDetail = (pokemon) => {
     return fetch(pokemon.url)
